@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A website with firebase database</title>
+</head>
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+<script>
+    
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDgld1agWN-vcgF4FatGx-NnIdU21-W1UI",
+      authDomain: "practice-75caa.firebaseapp.com",
+      databaseURL: "https://practice-75caa.firebaseio.com",
+      projectId: "practice-75caa",
+      storageBucket: "practice-75caa.appspot.com",
+      messagingSenderId: "95749861767",
+      appId: "1:95749861767:web:1c7f6a18cb091a7e65e322",
+      measurementId: "G-5XDCQR31G6"
+    };
+    // Initialize Firebase
+  var firebase =  firebase.initializeApp(firebaseConfig);
+    // firebase.analytics();
+    function enterData(){
+        firebase.database().ref("User").set({
+            name:document.getElementById("name").value,
+            fname:document.getElementById("fname").value,
+        })
+
+        // getData();
+    }
+
+
+
+function getData(){
+    firebase.database().ref("/").once("value",function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+            var childData = childSnapshot.val();
+            console.log(childData)
+            document.getElementById("data").innerHTML = childData.name + "" + childData.fname
+        })
+    })
+}
+
+getData()
+
+
+
+
+
+
+// getData();
+// firebase.database().ref.on("value", function(snapshot){
+// snapshot.forEach(function(childSnapshot){
+// var data = childSnapshot.val();
+// console.log(data);
+//   })
+// })
+  </script>
+
+<body>
+
+
+    <h1>Practice With Firebase</h1>
+    Enter Your Name:-<br>
+    <input type="name" placeholder="Enter You Name" id="name"/><br>
+    Enter Your Father Name:-<br>
+    <input type="name" placeholder="Enter You Name" id="fname"/><br>
+    <button onclick="enterData()">Submit</button><br>
+
+    <h1 id="data" ></h1>
+</body>
+</html>
